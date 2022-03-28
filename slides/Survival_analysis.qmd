@@ -1,0 +1,221 @@
+---
+title: "Survival Analysis"
+subtitle: "BMEG 5103"
+author: "Ariel Mundo"
+institute: University of Arkansas
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    incremental: true   
+---
+
+## Introduction
+
+(from _Wikipedia_)
+
+"Survival analysis is a branch of Statistics for analyzing the expected duration of time until one event occurs.
+
+- What proportion of the population will survive past a certain time?
+
+- Of those that survive, at what rate will they die?
+"
+
+## Other Names
+
+- Reliability analysis
+
+- Time-to-event analysis
+
+. . .
+
+### Biomedical Applications
+
+- Cancer studies: time to an event of interest (_survival time_)
+
+    + Time from complete remission to relapse or progression
+    
+    + Or time from diagnosis to death
+    
+- Time to heart attack
+
+::: footer
+Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 2003
+:::
+
+## Challenges
+
+- Only some individuals have experienced the event
+
+- Survival times will be _unknown_ for a subset of the sample
+
+- Survival times are not normally distributed
+
+. . .
+
+This leads to an important concept: Censoring
+
+<br>
+
+. . .
+
+::: {.fragment .highlight-red}
+Censoring
+:::
+
+. . .
+
+"Censoring means that the total survival time for that subject cannot be accurately determined"
+
+::: footer
+Rich, et al. _A practical guide to understanding Kaplan-Meier Curves_. 2010
+:::
+
+## Censoring
+
+### Causes
+
+- Subject drops out
+- Lost to follow-up
+- Data is not available
+- The study ends before (i.e., subject survived at least until the end of the study, but we don't know what happened after)
+
+::: footer
+Rich, et al. _A practical guide to understanding Kaplan-Meier Curves_. 2010
+:::
+
+## Censoring
+
+### Challenges
+
+:::: columns
+::: {.column width="40%"}
+
+- Censored survival times _underestimate_ the true time to event
+
+- Subjects 1,3,4,5 and 8 were *censored* before 10 years
+
+:::
+
+::: {.column width="60%"}
+
+![](images/swimmer-1.png)
+:::
+::::
+
+::: footer
+https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html
+:::
+
+## Another Example
+
+From Clark et al. _A prognostic model for ovarian cancer_. BJC. 2001
+
+- Data from an ovarian cancer study
+- Patients diagnosed with primary epithelial ovarian carcinoma
+    + Between January 1990 and December 1999
+- Follow-up data available until the end of 2000
+- By that time, 75.9% had died
+
+## Another Example
+
+:::: columns
+::: {.column width="40%"}
+
+![](images/clark_calendar_time.png)
+:::
+
+::: {.column width="60%"}
+
+R: Relapse <br>
+D: Death from ovarian cancer <br>
+Do: Death from another cause <br>
+A: Attended last clinic visit (were alive!) <br>
+L: Loss to follow-up <br>
+X: Death
+
+_Dashed vertical line is the date of the last follow-up_
+
+:::
+::::
+
+::: footer
+Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 2003
+:::
+
+## Another Example
+
+- 4 patients had a non-fatal relapse (R)
+- 1 lost at follow-up
+- 7 patients died (5 from ovarian cancer)
+- The event of interest here is **all-cause** mortality (also called overall survival)
+
+
+## Another Example
+
+:::: columns
+::: {.column width="33%"}
+![](images/clark_survival_time.png)
+
+<h7>
+&squ; indicates censoring
+</h7>
+
+
+:::
+
+::: {.column width="66%"}
+
+- The data now is plotted using "survival time" <br>
+- Nonfatal relapses are ignored <br>
+- Those who have not died are **censored** <br><br>
+
+::: {style="color: blue;"}
+- Q: What would change if we were interested in deaths from ovarian cancer **only?**
+:::
+:::
+::::
+
+::: footer
+Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 2003
+:::
+
+## Another Example
+
+::: {style="color: blue;"}
+- Q: What would change if we were interested in deaths from ovarian cancer **only?**
+
+- A: Patients 5 and 6 would need to be censored as well
+:::
+
+## Approach
+
+- For survival data, we usually estimate the Survival Probability (aka Survivor Function)
+    + Survival $S(t)$:<br>
+    Probability that an individual survives from the time origin to a specific future time $t$
+- An additional probability could be also estimated _the hazard probability_ ($h(t)$)
+
+## Kaplan-Meier Survival Estimate
+
+- Suppose that $k$ patients have events at distinct times <br>
+$$t_1<t_2<t_3<t_4<...<t_k$$
+- We assume these events are **independent**: <br> 
+We can calculate the cumulative survival probability by multiplying the probabilities of surviving from one interval to the next.
+
+## Kaplan-Meier Survival Estimate
+
+$$S(t_j)=S(t_{j-1}) \left( 1-\frac{d_j}{n_j} \right),$$
+
+where:<br>
+$S(t_j)$: the probability of being alive at time $t_j$.<br>
+$S(t_{j-1})$: probability of being alive at $t_{j-1}$ <br>
+$n_j$: number of patients alive just before $t_j$ <br>
+$d_j$: number of events at $t_j$
+
+## The Hazard probability
+
+The relationship between $S(t)$ and $h(t)$ is defined by:
+
+$$h(t)=-\frac{\text{d}}{\text{d}t}[\log S(t)]$$
+
+- If $S(t)$ is known then $h(t)$ is automatically known (and viceversa).
