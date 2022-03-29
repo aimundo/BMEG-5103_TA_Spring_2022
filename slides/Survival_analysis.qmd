@@ -31,11 +31,12 @@ format:
 
 ### Biomedical Applications
 
-- Cancer studies: time to an event of interest (_survival time_)
+- Cancer studies: time to an event of interest
 
-    + Time from complete remission to relapse or progression
-    
-    + Or time from diagnosis to death
+    + Time from complete remission to relapse or progression (**time to event**)
+
+
+    + Or time from diagnosis to death (**survival time**)
     
 - Time to heart attack
 
@@ -43,13 +44,27 @@ format:
 Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 2003
 :::
 
+## Why can't we do a rm-ANOVA? or a LMEM?
+
+:::: columns
+::: {.column width="50%"}
+
+- Survival data is _positively skewed_ (long tail to the right)
+
+- In other words, data does not follow a normal distribution
+:::
+
+::: {.column width="50%"}
+![](images/histogram.png)
+:::
+::::
+
 ## Challenges
 
 - Only some individuals have experienced the event
 
 - Survival times will be _unknown_ for a subset of the sample
 
-- Survival times are not normally distributed
 
 . . .
 
@@ -59,7 +74,7 @@ This leads to an important concept: Censoring
 
 . . .
 
-::: {.fragment .highlight-red}
+::: {style="color: red;"}
 Censoring
 :::
 
@@ -107,6 +122,13 @@ Rich, et al. _A practical guide to understanding Kaplan-Meier Curves_. 2010
 https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html
 :::
 
+## Censoring
+
+- In other words, patients enter the study at $t_0$, and they die at $t_0+t$
+- But $t$ is unknown (either still alive or lost to follow-up)
+- If the invidual was last known to be alive at time $t_0+c$ the time $c$ is called a _censored survival time_
+- Because censoring occurs after the individual entered the study it is known as _right censoring_ (censoring to the right of the of the last known survival time)
+
 ## Another Example
 
 From Clark et al. _A prognostic model for ovarian cancer_. BJC. 2001
@@ -123,6 +145,7 @@ From Clark et al. _A prognostic model for ovarian cancer_. BJC. 2001
 ::: {.column width="40%"}
 
 ![](images/clark_calendar_time.png)
+"Patient time"
 :::
 
 ::: {.column width="60%"}
@@ -156,7 +179,6 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 :::: columns
 ::: {.column width="33%"}
 ![](images/clark_survival_time.png)
-
 <h7>
 &squ; indicates censoring
 </h7>

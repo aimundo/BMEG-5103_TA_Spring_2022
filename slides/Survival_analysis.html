@@ -137,10 +137,10 @@
 <div class="fragment">
 <h3 id="biomedical-applications">Biomedical Applications</h3>
 <ul>
-<li class="fragment"><p>Cancer studies: time to an event of interest (<em>survival time</em>)</p>
+<li class="fragment"><p>Cancer studies: time to an event of interest</p>
 <ul>
-<li class="fragment"><p>Time from complete remission to relapse or progression</p></li>
-<li class="fragment"><p>Or time from diagnosis to death</p></li>
+<li class="fragment"><p>Time from complete remission to relapse or progression (<strong>time to event</strong>)</p></li>
+<li class="fragment"><p>Or time from diagnosis to death (<strong>survival time</strong>)</p></li>
 </ul></li>
 <li class="fragment"><p>Time to heart attack</p></li>
 </ul>
@@ -149,19 +149,31 @@
 </div>
 </div>
 </section>
+<section id="why-cant-we-do-a-rm-anova-or-a-lmem" class="slide level2">
+<h2>Why can’t we do a rm-ANOVA? or a LMEM?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><p>Survival data is <em>positively skewed</em> (long tail to the right)</p></li>
+<li class="fragment"><p>In other words, data does not follow a normal distribution</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/histogram.png" class=""></p>
+</div>
+</div>
+</section>
 <section id="challenges" class="slide level2">
 <h2>Challenges</h2>
 <ul>
 <li class="fragment"><p>Only some individuals have experienced the event</p></li>
 <li class="fragment"><p>Survival times will be <em>unknown</em> for a subset of the sample</p></li>
-<li class="fragment"><p>Survival times are not normally distributed</p></li>
 </ul>
 <div class="fragment">
 <p>This leads to an important concept: Censoring</p>
 <p><br></p>
 </div>
 <div class="fragment">
-<div class="fragment highlight-red">
+<div style="color: red;">
 <p>Censoring</p>
 </div>
 </div>
@@ -202,6 +214,15 @@
 <p>https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html</p>
 </div>
 </section>
+<section id="censoring-2" class="slide level2">
+<h2>Censoring</h2>
+<ul>
+<li class="fragment">In other words, patients enter the study at <span class="math inline">\(t_0\)</span>, and they die at <span class="math inline">\(t_0+t\)</span></li>
+<li class="fragment">But <span class="math inline">\(t\)</span> is unknown (either still alive or lost to follow-up)</li>
+<li class="fragment">If the invidual was last known to be alive at time <span class="math inline">\(t_0+c\)</span> the time <span class="math inline">\(c\)</span> is called a <em>censored survival time</em></li>
+<li class="fragment">Because censoring occurs after the individual entered the study it is known as <em>right censoring</em> (censoring to the right of the of the last known survival time)</li>
+</ul>
+</section>
 <section id="another-example" class="slide level2">
 <h2>Another Example</h2>
 <p>From Clark et al.&nbsp;<em>A prognostic model for ovarian cancer</em>. BJC. 2001</p>
@@ -219,7 +240,7 @@
 <h2>Another Example</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
-<p><img data-src="images/clark_calendar_time.png" class=""></p>
+<p><img data-src="images/clark_calendar_time.png" class=""> “Patient time”</p>
 </div><div class="column" style="width:60%;">
 <p>R: Relapse <br> D: Death from ovarian cancer <br> Do: Death from another cause <br> A: Attended last clinic visit (were alive!) <br> L: Loss to follow-up <br> X: Death</p>
 <p><em>Dashed vertical line is the date of the last follow-up</em></p>
@@ -242,8 +263,7 @@
 <h2>Another Example</h2>
 <div class="columns">
 <div class="column" style="width:33%;">
-<p><img data-src="images/clark_survival_time.png" class=""></p>
-<p><h7> □ indicates censoring </h7></p>
+<p><img data-src="images/clark_survival_time.png" class=""> Study time <h7> □ indicates censoring </h7></p>
 </div><div class="column" style="width:66%;">
 <ul>
 <li class="fragment">The data now is plotted using “survival time” <br></li>
