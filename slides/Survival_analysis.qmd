@@ -129,7 +129,7 @@ https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html
 - If the invidual was last known to be alive at time $t_0+c$ the time $c$ is called a _censored survival time_
 - Because censoring occurs after the individual entered the study it is known as _right censoring_ (censoring to the right of the of the last known survival time)
 
-## Another Example
+## An Example
 
 From Clark et al. _A prognostic model for ovarian cancer_. BJC. 2001
 
@@ -139,7 +139,7 @@ From Clark et al. _A prognostic model for ovarian cancer_. BJC. 2001
 - Follow-up data available until the end of 2000
 - By that time, 75.9% had died
 
-## Another Example
+## An Example
 
 :::: columns
 ::: {.column width="40%"}
@@ -174,7 +174,7 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 - The event of interest here is **all-cause** mortality (also called overall survival)
 
 
-## Another Example
+## An Example
 
 :::: columns
 ::: {.column width="33%"}
@@ -202,7 +202,7 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 2003
 :::
 
-## Another Example
+## An Example
 
 ::: {style="color: blue;"}
 - Q: What would change if we were interested in deaths from ovarian cancer **only?**
@@ -210,6 +210,20 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 - A: Patients 5 and 6 would need to be censored as well
 :::
 
+##  Notation
+
+## Another example
+
+- From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes' C colorectal cancer.
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+library(tidyverse)
+library(here)
+data<-read.csv("data/CRC_data.csv")
+head(data)
+```
+
+- `Survival_date` refers to months <br>
+- `Condition` indicates censoring (C) or dead (D).
 ## Approach
 
 - For survival data, we usually estimate the Survival Probability (aka Survivor Function)
