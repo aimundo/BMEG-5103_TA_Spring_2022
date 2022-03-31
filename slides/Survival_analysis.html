@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -363,15 +367,14 @@ pre code {
 ## 4       4             6        D
 ## 5       5             6        D
 ## 6       6             8        D</code></pre>
-</div>
-<div id="approach" class="section level2">
-<h2>Approach</h2>
 <ul>
-<li>For survival data, we usually estimate the Survival Probability (aka Survivor Function)
+<li><p><code>Survival_date</code> refers to months <br></p></li>
+<li><p><code>Condition</code> indicates censoring (C) or dead (D). ## Approach</p></li>
+<li><p>For survival data, we usually estimate the Survival Probability (aka Survivor Function)</p>
 <ul>
 <li>Survival <span class="math inline">\(S(t)\)</span>:<br> Probability that an individual survives from the time origin to a specific future time <span class="math inline">\(t\)</span></li>
 </ul></li>
-<li>An additional probability could be also estimated <em>the hazard probability</em> (<span class="math inline">\(h(t)\)</span>)</li>
+<li><p>An additional probability could be also estimated <em>the hazard probability</em> (<span class="math inline">\(h(t)\)</span>)</p></li>
 </ul>
 </div>
 <div id="kaplan-meier-survival-estimate" class="section level2">

@@ -9,6 +9,12 @@ format:
     slide-number: true
     incremental: true   
 ---
+```{r,setup, include=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(survival)
+```
+
 
 ## Introduction
 
@@ -216,10 +222,40 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 
 - From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes' C colorectal cancer.
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
-library(tidyverse)
-library(here)
 data<-read.csv("data/CRC_data.csv")
-head(data)
+sc<-data$Survival_date
+i<-1
+for (val in 1:length(sc)){
+    
+    test<-seq(from=0,to=sc[val])
+    
+}
+
+#data<-ovarian
+
+#data<-data %>%
+#    mutate(Patient=factor(row_number()))
+#colnames(data)<-c("Survival_time","Censoring_status","Age","Treatment")
+
+knitr::kable(head(data))
+```
+
+## Plotting the data
+
+Let's see how the plot looks like:
+
+```{r}
+data$Patient<-as.factor(data$Patient)
+
+test<-data %>%
+    group_by(Patient)%>%
+    rep(1:data$Survival_date)
+    
+data %>%
+    ggplot(aes(x=Survival_date,y=Patient, group=Patient))+
+    geom_line()+
+    geom_point(shape=15)+
+    theme_classic()
 ```
 
 - `Survival_date` refers to months <br>
