@@ -13,6 +13,7 @@ format:
 library(tidyverse)
 library(here)
 library(survival)
+library(survminer)
 library(scico)
 thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
 ```
@@ -223,19 +224,6 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 - From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes' C colorectal cancer.
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 data<-read.csv("data/CRC_data.csv")
-sc<-data$Survival_date
-i<-1
-for (val in 1:length(sc)){
-    
-    test<-seq(from=0,to=sc[val])
-    
-}
-
-#data<-ovarian
-
-#data<-data %>%
-#    mutate(Patient=factor(row_number()))
-#colnames(data)<-c("Survival_time","Censoring_status","Age","Treatment")
 
 knitr::kable(head(data), align='c')
 ```
@@ -246,10 +234,6 @@ Let's see how the plot looks like:
 
 ```{r}
 #data$Patient<-as.factor(data$Patient)
-
-test<-data %>%
-    group_by(Patient)%>%
-    rep(1:data$Survival_date)
     
 data %>%
     ggplot()+
@@ -305,7 +289,7 @@ $$S(t)=p_1 \times p_2 \times...\times p_t$$
 
 For any time $t$ (days, months, years, etc.),
 
-$$p_t= \frac{\text{Number of patients followed for at least } t-1 \text { and who survive day } t} {\text{Number of patients alive at the end of day }t-1}$$
+$$p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and who survive day } t} {\text{Number of patients alive at the end of day }t-1}$$
 
 ## The rationale behind Kaplan-Meier
 
@@ -356,7 +340,10 @@ $$p_t=1-\frac{d_t}{n_t}$$
 
 - The succesive probabilites of survival $S(1), S(2)...,S(t)$ are known as the Kaplan-Meier or product-limit estimates of survival.
 
+. . .
+
 $$S(t)=S(t-1) \left( 1-\frac{d_t}{n_t} \right),$$
+. . .
 
 where:<br>
 $S(t)$: the probability of being alive at time $t$.<br>
@@ -406,7 +393,23 @@ Going back to the Dukes' colorectal cancer example:
 
 ## Creating the plot
 
+```{r,plot-survival,echo=FALSE}
 
+#Dead will become 1 and censored becomes 0
+data<-data %>%
+    mutate(Cat=ifelse(Category=="D",1,0))
+
+km<-with(data,Surv(Survival_date,Cat))
+
+km_fit<-survfit(Surv(Survival_date,Cat)~1,data=data)
+
+ggsurvplot(km_fit,
+           conf.int=FALSE,
+           risk.table = TRUE,
+           ggtheme=theme_classic(),
+           data=data)
+
+```
 
 
 ## The Hazard probability
