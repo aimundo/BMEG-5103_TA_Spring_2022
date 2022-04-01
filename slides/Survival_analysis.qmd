@@ -248,7 +248,7 @@ data %>%
 
 - `Category` indicates censoring (C) or dead (D).
 
-## A word about notation
+## A word about notation!
 
 - First we rank all survival/censored times from low to high
 
