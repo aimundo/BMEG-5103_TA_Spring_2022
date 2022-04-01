@@ -352,42 +352,373 @@ pre code {
 </ul>
 </div>
 </div>
-<div id="notation" class="section level2">
-<h2>Notation</h2>
-</div>
 <div id="another-example-1" class="section level2">
 <h2>Another example</h2>
 <ul>
 <li>From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes’ C colorectal cancer.</li>
 </ul>
-<pre><code>##   Patient Survival_date Category
-## 1       1             3        C
-## 2       2             6        D
-## 3       3             6        D
-## 4       4             6        D
-## 5       5             6        D
-## 6       6             8        D</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Patient</th>
+<th align="center">Survival_date</th>
+<th align="center">Category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">3</td>
+<td align="center">C</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">6</td>
+<td align="center">D</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">6</td>
+<td align="center">D</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">6</td>
+<td align="center">D</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">D</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">8</td>
+<td align="center">D</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="plotting-the-data" class="section level2">
+<h2>Plotting the data</h2>
+<p>Let’s see how the plot looks like:</p>
+<pre class="r"><code>#data$Patient&lt;-as.factor(data$Patient)
+
+test&lt;-data %&gt;%
+    group_by(Patient)%&gt;%
+    rep(1:data$Survival_date)</code></pre>
+<pre><code>## Warning in 1:data$Survival_date: numerical expression has 24 elements: only the
+## first used</code></pre>
+<pre class="r"><code>data %&gt;%
+    ggplot()+
+    geom_segment(aes(xend=Survival_date,yend=Patient,x=0,y=Patient),size=2)+
+    scale_y_reverse()+
+    labs(x=&quot;Survival/Censored times (Months)&quot;,y=&quot;Patient No.&quot;)+
+    geom_point(aes(x=Survival_date,y=Patient,shape=Category,color=Category),size=4)+
+    scale_shape_manual(values=c(1,16))+
+    theme_classic()+
+    thm1</code></pre>
+<p><img src="data:image/png;base64,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" width="672" /></p>
 <ul>
-<li><p><code>Survival_date</code> refers to months <br></p></li>
-<li><p><code>Condition</code> indicates censoring (C) or dead (D). ## Approach</p></li>
-<li><p>For survival data, we usually estimate the Survival Probability (aka Survivor Function)</p>
+<li><code>Category</code> indicates censoring (C) or dead (D).</li>
+</ul>
+</div>
+<div id="a-word-about-notation" class="section level2">
+<h2>A word about notation</h2>
+<ul>
+<li><p>First we rank all survival/censored times from low to high</p></li>
+<li><p>Survival times are denoted by <span class="math inline">\(t\)</span> and Censored times are denoted by <span class="math inline">\(t+\)</span>:</p>
+<ul>
+<li>Censored time for patient 1 is 3+</li>
+<li>Survival time for patient 2 is 6</li>
+</ul></li>
+<li><p>If there are ties in survival/censored data (like the 3 patients at 12 mo.), censored observations get a higher rank.</p>
+<ul>
+<li>In this case, survival times are 12, 12 and 12+</li>
+<li>Ranks would be 8, 9 and 10</li>
+</ul></li>
+</ul>
+</div>
+<div id="the-rationale-behind-kaplan-meier" class="section level2">
+<h2>The rationale behind Kaplan-Meier</h2>
+<ul>
+<li><p>“What is the probability that patients will survive a certain length of time?”</p></li>
+<li><p>How we calculate this probability:</p>
+<ul>
+<li><p>The probability of surviving 42 months is the probability of surviving the 42th month having <em>already</em> survived the previous 41 months</p></li>
+<li><p>The same rationale applies for surviving 41 mo.: the probability of surviving 41, <em>already</em> survived the previous 40 mo.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="the-rationale-behind-kaplan-meier-1" class="section level2">
+<h2>The rationale behind Kaplan-Meier</h2>
+<p><span class="math inline">\(p_1\)</span>= probability of surviving at least 1 month after enrollment in trial . . . <span class="math inline">\(p_{42}\)</span>= conditional probability of surviving the 42nd month after having survived month 41</p>
+<p><span class="math display">\[S(42)=p_1\times p_2\times. . .\times p_{42}\]</span> Where <span class="math inline">\(S\)</span> denotes the overall probability of surviving 42 months after enrolling in the trial.</p>
+</div>
+<div id="the-rationale-behind-kaplan-meier-2" class="section level2">
+<h2>The rationale behind Kaplan-Meier</h2>
+<p>In general, the probability of survival to time <span class="math inline">\(t\)</span> is</p>
+<p><span class="math display">\[S(t)=p_1 \times p_2 \times...\times p_t\]</span></p>
+<p>For any time <span class="math inline">\(t\)</span> (days, months, years, etc.),</p>
+<p><span class="math display">\[p_t= \frac{\text{Number of patients followed for at least } t-1 \text { and who survive day } t} {\text{Number of patients alive at the end of day }t-1}\]</span></p>
+</div>
+<div id="the-rationale-behind-kaplan-meier-3" class="section level2">
+<h2>The rationale behind Kaplan-Meier</h2>
+<ul>
+<li>For survival data, we usually estimate the Survival Probability (aka Survivor Function)
 <ul>
 <li>Survival <span class="math inline">\(S(t)\)</span>:<br> Probability that an individual survives from the time origin to a specific future time <span class="math inline">\(t\)</span></li>
 </ul></li>
-<li><p>An additional probability could be also estimated <em>the hazard probability</em> (<span class="math inline">\(h(t)\)</span>)</p></li>
 </ul>
 </div>
 <div id="kaplan-meier-survival-estimate" class="section level2">
 <h2>Kaplan-Meier Survival Estimate</h2>
 <ul>
-<li>Suppose that <span class="math inline">\(k\)</span> patients have events at distinct times <br> <span class="math display">\[t_1&lt;t_2&lt;t_3&lt;t_4&lt;...&lt;t_k\]</span></li>
-<li>We assume these events are <strong>independent</strong>: <br> We can calculate the cumulative survival probability by multiplying the probabilities of surviving from one interval to the next.</li>
+<li><p>Suppose that <span class="math inline">\(k\)</span> patients have events at distinct times <br> <span class="math display">\[t_1&lt;t_2&lt;t_3&lt;t_4&lt;...&lt;t_k\]</span></p></li>
+<li><p>Think that <span class="math inline">\(t\)</span> denotes the start of a short time interval which ends at <span class="math inline">\((t+1)\)</span>.</p></li>
+<li><p>We then use <span class="math inline">\(n_t\)</span> as the number of patients alive at the start of the interval → these are at <em>risk</em> of death during that short interval afterwards.</p></li>
 </ul>
 </div>
 <div id="kaplan-meier-survival-estimate-1" class="section level2">
 <h2>Kaplan-Meier Survival Estimate</h2>
-<p><span class="math display">\[S(t_j)=S(t_{j-1}) \left( 1-\frac{d_j}{n_j} \right),\]</span></p>
-<p>where:<br> <span class="math inline">\(S(t_j)\)</span>: the probability of being alive at time <span class="math inline">\(t_j\)</span>.<br> <span class="math inline">\(S(t_{j-1})\)</span>: probability of being alive at <span class="math inline">\(t_{j-1}\)</span> <br> <span class="math inline">\(n_j\)</span>: number of patients alive just before <span class="math inline">\(t_j\)</span> <br> <span class="math inline">\(d_j\)</span>: number of events at <span class="math inline">\(t_j\)</span></p>
+<ul>
+<li><p>We assume these events are <strong>independent</strong>: <br> We can calculate the cumulative survival probability by multiplying the probabilities of surviving from one interval to the next.</p></li>
+<li><p>We denote the number of patients dying in the short time interval (just after <span class="math inline">\(t\)</span>) as <span class="math inline">\(d_t\)</span>.</p></li>
+<li><p>The number of patients surviving the interval is then <span class="math inline">\((n_t-d_t)\)</span></p></li>
+<li><p>This number in turn becomes the number starting interval <span class="math inline">\(n_{t+1}\)</span></p></li>
+</ul>
+</div>
+<div id="kaplan-meier-surival-estimate" class="section level2">
+<h2>Kaplan-Meier Surival Estimate</h2>
+<p>We can write then</p>
+<p><span class="math display">\[p_t=\frac{(n_t-d_t)}{n_t},\]</span> which can be estimated also as</p>
+<p><span class="math display">\[p_t=1-\frac{d_t}{n_t}\]</span></p>
+</div>
+<div id="kaplan-meier-survival-estimate-2" class="section level2">
+<h2>Kaplan-Meier Survival Estimate</h2>
+<ul>
+<li><p>When <span class="math inline">\(d_t=0\)</span> then <span class="math inline">\(p_t=1\)</span>, because the number at risk does not change.</p></li>
+<li><p>The value of <span class="math inline">\(S(t)\)</span> changes <strong>only</strong> when at least one person dies.</p></li>
+<li><p>Therefore, we skip the times when there are no deaths (We don’t calculate <span class="math inline">\(S(t)\)</span>)</p></li>
+<li><p>Recall that we estimate the probability of surviving at <span class="math inline">\(t\)</span> as the product of all the probabilities up to time <span class="math inline">\(t\)</span></p></li>
+</ul>
+</div>
+<div id="kaplan-meier-survival-estimate-3" class="section level2">
+<h2>Kaplan-Meier Survival Estimate</h2>
+<ul>
+<li>The succesive probabilites of survival <span class="math inline">\(S(1), S(2)...,S(t)\)</span> are known as the Kaplan-Meier or product-limit estimates of survival.</li>
+</ul>
+</div>
+<div id="kaplan-meier-survival-estimate-4" class="section level2">
+<h2>Kaplan-Meier Survival Estimate</h2>
+<p><span class="math display">\[S(t)=S(t-1) \left( 1-\frac{d_t}{n_t} \right),\]</span></p>
+<p>where:<br> <span class="math inline">\(S(t)\)</span>: the probability of being alive at time <span class="math inline">\(t\)</span>.<br> <span class="math inline">\(S(t-1)\)</span>: probability of being alive at <span class="math inline">\(t-1\)</span> <br> <span class="math inline">\(n_t\)</span>: number of patients alive just before <span class="math inline">\(t\)</span> <br> <span class="math inline">\(d_t\)</span>: number of patients dying (events) at <span class="math inline">\(t\)</span></p>
+</div>
+<div id="doing-the-calculations" class="section level2">
+<h2>Doing the calculations</h2>
+<p>Going back to the Dukes’ colorectal cancer example:</p>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="16%" />
+<col width="17%" />
+<col width="18%" />
+<col width="20%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Rank</th>
+<th align="center">Survival time <span class="math inline">\(t\)</span></th>
+<th align="left">Number at risk <span class="math inline">\(n_t\)</span></th>
+<th align="center">Observed deaths <span class="math inline">\(d_t\)</span></th>
+<th align="center"><span class="math inline">\(p_t=1-\frac{d_t}{n_t}\)</span></th>
+<th align="center">Survival proportion <span class="math inline">\(S(t)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">-</td>
+<td align="center">0</td>
+<td align="left">24</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">3+</td>
+<td align="left">24</td>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">6</td>
+<td align="left">┓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">6</td>
+<td align="left">| 23</td>
+<td align="center">4</td>
+<td align="center">0.8261</td>
+<td align="center">0.8261</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">6</td>
+<td align="left">┛</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="left">┓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">8</td>
+<td align="left">|19</td>
+<td align="center">2</td>
+<td align="center">0.8947</td>
+<td align="center">0.7391</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="left">┛</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="doing-the-calculations-1" class="section level2">
+<h2>Doing the Calculations</h2>
+<ul>
+<li><p>Q: What is <span class="math inline">\(n_t\)</span> at 12 mo?</p></li>
+<li><p>A: 17 (19 were at risk at 8 mo and two died at 12 mo)</p></li>
+<li><p>Q: What would be the values of <span class="math inline">\(p_t\)</span> and <span class="math inline">\(S(t)\)</span> at 12 months?</p></li>
+</ul>
+</div>
+<div id="doing-the-calculations-2" class="section level2">
+<h2>Doing the Calculations</h2>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="16%" />
+<col width="17%" />
+<col width="18%" />
+<col width="20%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Rank</th>
+<th align="center">Survival time <span class="math inline">\(t\)</span></th>
+<th align="left">Number at risk <span class="math inline">\(n_t\)</span></th>
+<th align="center">Observed deaths <span class="math inline">\(d_t\)</span></th>
+<th align="center"><span class="math inline">\(p_t=1-\frac{d_t}{n_t}\)</span></th>
+<th align="center">Survival proportion <span class="math inline">\(S(t)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">-</td>
+<td align="center">0</td>
+<td align="left">24</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">3+</td>
+<td align="left">24</td>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">6</td>
+<td align="left">┓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">6</td>
+<td align="left">| 23</td>
+<td align="center">4</td>
+<td align="center">0.8261</td>
+<td align="center">0.8261</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">6</td>
+<td align="left">┛</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="left">┓</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">8</td>
+<td align="left">|19</td>
+<td align="center">2</td>
+<td align="center">0.8947</td>
+<td align="center">0.7391</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="left">┛</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">12</td>
+<td align="left">|17</td>
+<td align="center">2</td>
+<td align="center">0.8824</td>
+<td align="center">0.6522</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">12</td>
+<td align="left">┛</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section" class="section level2">
+<h2></h2>
 </div>
 <div id="the-hazard-probability" class="section level2">
 <h2>The Hazard probability</h2>
