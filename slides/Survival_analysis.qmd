@@ -222,6 +222,8 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 ## Another example
 
 - From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes' C colorectal cancer.
+
+-
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 data<-read.csv("data/CRC_data.csv")
 
@@ -240,9 +242,10 @@ data %>%
     geom_segment(aes(xend=Survival_date,yend=Patient,x=0,y=Patient),size=2)+
     scale_y_reverse()+
     labs(x="Survival/Censored times (Months)",y="Patient No.")+
-    geom_point(aes(x=Survival_date,y=Patient,shape=Category,color=Category),size=4)+
+    geom_point(aes(x=Survival_date,y=Patient,shape=Category,color=Category),size=4,stroke=2)+
     scale_shape_manual(values=c(1,16))+
     theme_classic()+
+    theme(text=element_text(size=20))+
     thm1
 ```
 
@@ -253,8 +256,8 @@ data %>%
 - First we rank all survival/censored times from low to high
 
 - Survival times are denoted by $t$ and Censored times are denoted by $t+$:
-    + Censored time for patient 1 is 3+
-    + Survival time for patient 2 is 6
+    + Censored time for patient 1 is **3+**
+    + Survival time for patient 2 is **6**
 
 - If there are ties in survival/censored data (like the 3 patients at 12 mo.), censored observations get a higher rank.
     + In this case, survival times are 12, 12 and 12+
@@ -272,13 +275,18 @@ data %>%
     
 ## The rationale behind Kaplan-Meier
 
-$p_1$= probability of surviving at least 1 month after enrollment in trial
-.
-.
-.
-$p_{42}$= conditional probability of surviving the 42nd month after having survived month 41
+- $p_1$= probability of surviving at least 1 month after enrollment in trial
+
+
+
+- $p_{42}$= conditional probability of surviving the 42nd month after having survived month 41
+
+. . .
 
 $$S(42)=p_1\times p_2\times. . .\times p_{42}$$
+
+. . .
+
 Where $S$ denotes the overall probability of surviving 42 months after enrolling in the trial.
 
 ## The rationale behind Kaplan-Meier
@@ -289,7 +297,13 @@ $$S(t)=p_1 \times p_2 \times...\times p_t$$
 
 For any time $t$ (days, months, years, etc.),
 
-$$p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and who survive day } t} {\text{Number of patients alive at the end of day }t-1}$$
+. . .
+
+\begin{equation}
+\begin{aligned}
+p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and who survive day } t} {\text{Number of patients alive at the end of day }t-1}
+\end{aligned}
+\end{equation}
 
 ## The rationale behind Kaplan-Meier
 
@@ -316,15 +330,16 @@ We can calculate the cumulative survival probability by multiplying the probabil
 
 - This number in turn becomes the number starting interval $n_{t+1}$
 
-## Kaplan-Meier Surival Estimate
+## Kaplan-Meier Survival Estimate
 
 We can write then
 
 $$p_t=\frac{(n_t-d_t)}{n_t},$$
+
 which can be estimated also as
 
 
-$$p_t=1-\frac{d_t}{n_t}$$
+$$p_t=1-\frac{d_t}{n_t}.$$
 
 ## Kaplan-Meier Survival Estimate
 
@@ -343,6 +358,7 @@ $$p_t=1-\frac{d_t}{n_t}$$
 . . .
 
 $$S(t)=S(t-1) \left( 1-\frac{d_t}{n_t} \right),$$
+
 . . .
 
 where:<br>
@@ -356,17 +372,30 @@ $d_t$: number of patients dying (events) at $t$
 
 Going back to the Dukes' colorectal cancer example:
 
+<style>
+    table{
+        font-size: 20px;
+    }
+</style>
+
+. . .
+
 |Rank|Survival time $t$|Number at risk $n_t$|Observed deaths $d_t$|$p_t=1-\frac{d_t}{n_t}$|Survival proportion $S(t)$|
 |:--:|:----------------:|:------------------|:-------------------:|:---------------------:|:------------------------:|
 | -  |       0          |  24               |        0            |       1               |          1               |
 | 1  |      3+          |   24              |        0            |                       |                          |
 | 2  |      6           |  &#9491;          |                     |                       |                          |
 | 3  |      6           | \| 23             |       4             |        0.8261         |       0.8261             |
-| 4  |      6           | &#9499;           |                     |                       |                          |
-| 5  |      6           |  &#9491;          |                     |                       |                          |
-| 6  |      8           | \|19              |   2                 |     0.8947            |            0.7391        |
+| 4  |      6           | \|                |                     |                       |                          |
+| 5  |      6           |  &#9499;          |                     |                       |                          |
+| 6  |      8           |  &#9491;19        |   2                 |     0.8947            |            0.7391        |
 | 7  |      8           |  &#9499;          |                     |                       |                          |
 
+::: {style="color: blue;"}
+- Note that $n_t$ at 6 mo. is 23, censored patients _do_ affect $n_t$
+
+- $p_t$ and $d_t$ are only calculated when someone dies
+:::
 
 ## Doing the Calculations
 
@@ -384,14 +413,18 @@ Going back to the Dukes' colorectal cancer example:
 | 1  |      3+          |   24              |        0            |                       |                          |
 | 2  |      6           |  &#9491;          |                     |                       |                          |
 | 3  |      6           | \| 23             |       4             |        0.8261         |       0.8261             |
-| 4  |      6           | &#9499;           |                     |                       |                          |
-| 5  |      6           |  &#9491;          |                     |                       |                          |
-| 6  |      8           | \|19              |   2                 |     0.8947            |            0.7391        |
+| 4  |      6           | \|                |                     |                       |                          |
+| 5  |      6           |  &#9499;          |                     |                       |                          |
+| 6  |      8           |  &#9491;19        |   2                 |     0.8947            |            0.7391        |
 | 7  |      8           |  &#9499;          |                     |                       |                          |
-| 8  |      12          | \|17              |   2                 |         0.8824        |     0.6522               |
+| 8  |      12          | &#9491;17         |   2                 |         0.8824        |     0.6522               |
 | 9  |      12          |  &#9499;          |                     |                       |                          |
 
-## Creating the plot
+
+## Creating the plot {.smaller}
+
+:::: columns
+::: {.column width="80%"}
 
 ```{r,plot-survival,echo=FALSE}
 
@@ -411,8 +444,188 @@ ggsurvplot(km_fit,
 
 ```
 
+:::
 
-## The Hazard probability
+::: {.column width="20%"}
+- Vertical lines are the censored times
+- `Strata` indicates if we have different groups of data
+- At the bottom, we have the number of patients at risk with indicated timepoints
+
+:::
+::::
+
+::: {.notes}
+
+Why does this survival plot go to zero at 42 mo.?
+
+:::
+
+## Other ways to present the data {.smaller}
+
+:::: columns
+
+::: {.column width="80%"}
+```{r,cumulative-plot,echo=FALSE}
+ggsurvplot(km_fit,
+           conf.int=FALSE,
+           fun='event',
+           risk.table = TRUE,
+           ggtheme=theme_classic(),
+           data=data)
+
+```
+
+:::
+
+::: {.column width="20%"}
+- In certain circumstances, $1-S(t)$ is plotted against $t$: **Cumulative death curve**
+
+    + This is done when the outcome is rare or is of benefit of the patient:
+        + Healing of a lesion, achieving pregnancy, etc.
+        
+:::
+::::
+
+## Median Survival Time: No Censored Obs.
+
+- The time for which 50% of the population survives
+
+- If there are no censored observations (e.g., all the patients in a trial have died), the median survival time $M$, is estimated:
+
+    + By the middle observation of the ranked survival times $t_{(1)}, t_{(2)},...,t_{(n)}$ if the number of observations is odd
+    + Average of $t_{n/2}$ and $t_{(n/2+1)}$ if $n$ is even 
+
+
+## Median Survival Time: Censored Obs.
+
+- When there are censored survival times, $M$ is calculated by obtaining the Survival curve and then, finding the value that satisfies:
+
+. . .
+$$S(M)=0.5$$
+
+- Extend a horizontal line from $S(t)=0.5$ until the curve is met, and then move vertically down
+
+
+## Median Survival Time
+
+```{r,survival-median, echo=FALSE}
+ggsurvplot(km_fit,
+           conf.int=FALSE,
+           risk.table = TRUE,
+           ggtheme=theme_classic(),
+           surv.median.line="hv",
+           data=data)
+```
+
+
+## Confidence Intervals {.smaller}
+
+- How reliable are the estimates of the Kaplan-Meier curve?
+
+- We need to estimate confidence intervals (CIs) to answer this
+
+- There is some math behind this, but the main point is that the interval is estimated using:
+
+. . .
+
+$$S(t) \pm 1.96 \times SE(S(t))$$
+- Where $SE$ is the standard error (calculated using Greenwod's formula)
+
+- Any familiarity with the 1.96 in the equation?
+    - We are assuming normally distributed _estimates_, and 95% of the area in a normal distribution is within 1.96 standard deviations from the mean
+    
+## Three Treatment Groups Example
+
+- Data from one of the first successful trials of adjuvant chemo. in colorectal cancer.
+- Analyzing subset of 929 patients where death was the event of interest
+- 3 treatment groups: 
+    + Control ("Observation")
+    + Levimasole ("Lev")
+    + Levimasole+5-FU ("amisole")
+
+## Three Treatment Groups Example
+
+```{r,colon-trial,echo=FALSE}
+
+data2<-colon
+
+#Only analyzing death 
+data2<-filter(data2,etype==2)
+
+colon_fit<-survfit(Surv(time,status)~rx,data=data2)
+
+ggsurvplot(colon_fit,
+           conf.int=TRUE,
+           risk.table = TRUE,
+           legend.title="Treatment",
+           palette=c("#2F143F","#95AE90","#DBFABF"),
+           surv.median.line = "hv",
+           xlim=c(0,max(data2$time)),
+           ggtheme=theme_classic(),
+           data=data2)
+```
+
+
+
+::: footer
+
+Moertel, C. et al. _The New England Journal of Medicine_. 1990.
+:::
+
+## So far...
+
+- We defined and calculated $S(t)$
+
+- Created Survival Curve
+
+- Added the CIs
+
+- How do we compare two survival curves?
+
+## What We Can't Do
+
+- Longitudinal data **can't** be analyzed using cross-sectional tests (t-test, one way ANOVA, etc.)
+
+- The reason is that a single time point gives a biased perception of what actually is going on namely, ignores the effect of **time**
+
+## The Log-rank Test: Rationale
+
+- If two treatments have the same effect, the survival curves should be different only due to random variation in the sampling process
+
+- How can we know that the difference between two Survival Curves is caused by the effect of treatment?
+
+- In other words, we want to test that:
+
+    + $H_o$: There is no difference between the treatment groups survival curves
+    + This means that if we fail to reject $H_o$ the probability of a death occuring at any time point is the same in each treatment group.
+
+::: footer
+Bewick, Cheek, Ball. _Critical Care_. 2004
+
+## The Log-rank Test
+
+- We compute a $\chi^2$ statistic: Compare the observed results with expected results using categorical data
+
+- The test statistic is calculated in terms of the observed _(O)_, and expected _(E)_ values.
+
+- _O_: total number of observed deaths in each group
+
+- _E_: Sum of the expected number of deaths at the time of each death (i.e., risk of death at that time multiplied by the number alive int he group).
+
+
+## How it works
+
+- We first rank the survival times in each group (if a death and a censored observation are tied, the censored observation is allocated a higher rank)
+
+- We then rank **all observations**, irrespective of group
+
+
+
+## The Log-rank test
+
+$$\chi^2(\text{log rank})= \frac{(O_A-E_A)^2}{E_A} + \frac{(O_B-E_B)^2}{E_B}$$
+
+## The Hazard Probability
 
 The relationship between $S(t)$ and $h(t)$ is defined by:
 
