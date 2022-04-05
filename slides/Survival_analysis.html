@@ -107,6 +107,8 @@
       margin-right: 0; 
     }
   </style>
+  <script src="Survival_analysis_files\libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="Survival_analysis_files\libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body>
   <div class="reveal">
@@ -293,53 +295,54 @@
 <section id="another-example-1" class="slide level2">
 <h2>Another example</h2>
 <ul>
-<li class="fragment"><p>From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes’ C colorectal cancer.</p></li>
-<li class="fragment"><div class="cell">
+<li class="fragment">From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes’ C colorectal cancer.</li>
+</ul>
+<div class="cell">
 <div class="cell-output-display">
 <table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Patient</th>
-<th style="text-align: center;">Survival_date</th>
-<th style="text-align: center;">Category</th>
-</tr>
-</thead>
+ <thead>
+  <tr>
+   <th style="text-align:center;"> Patient </th>
+   <th style="text-align:center;"> Survival_date </th>
+   <th style="text-align:center;"> Category </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">C</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">D</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">D</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">D</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">D</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">D</td>
-</tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> C </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> D </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> D </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> D </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> D </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> 8 </td>
+   <td style="text-align:center;"> D </td>
+  </tr>
 </tbody>
 </table>
+
 </div>
-</div></li>
-</ul>
+</div>
 </section>
 <section id="plotting-the-data" class="slide level2">
 <h2>Plotting the data</h2>
@@ -731,10 +734,12 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 <ul>
 <li class="fragment">When there are censored survival times, <span class="math inline">\(M\)</span> is calculated by obtaining the Survival curve and then, finding the value that satisfies:</li>
 </ul>
-<p>. . . <span class="math display">\[S(M)=0.5\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[S(M)=0.5\]</span></p>
 <ul>
 <li class="fragment">Extend a horizontal line from <span class="math inline">\(S(t)=0.5\)</span> until the curve is met, and then move vertically down</li>
 </ul>
+</div>
 </section>
 <section id="median-survival-time" class="slide level2">
 <h2>Median Survival Time</h2>
@@ -757,8 +762,8 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 </ul>
 </div>
 </section>
-<section id="two-treatment-groups-example" class="slide level2">
-<h2>Two Treatment Groups Example</h2>
+<section id="three-treatment-groups-example" class="slide level2">
+<h2>Three Treatment Groups Example</h2>
 <ul>
 <li class="fragment">Data from one of the first successful trials of adjuvant chemo. in colorectal cancer.</li>
 <li class="fragment">Analyzing subset of 929 patients where death was the event of interest</li>
@@ -770,13 +775,649 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 </ul></li>
 </ul>
 </section>
-<section id="two-treatment-groups-example-1" class="slide level2">
-<h2>Two Treatment Groups Example</h2>
+<section id="three-treatment-groups-example-1" class="slide level2">
+<h2>Three Treatment Groups Example</h2>
 
 <div class="footer">
 <p>Moertel, C. et al.&nbsp;<em>The New England Journal of Medicine</em>. 1990.</p>
 </div>
 <img data-src="Survival_analysis_files/figure-revealjs/colon-trial-1.png" width="960" class="r-stretch"></section>
+<section id="so-far" class="slide level2">
+<h2>So far…</h2>
+<ul>
+<li class="fragment"><p>We defined and calculated <span class="math inline">\(S(t)\)</span></p></li>
+<li class="fragment"><p>Created Survival Curve</p></li>
+<li class="fragment"><p>Added the CIs</p></li>
+<li class="fragment"><p>How do we compare two survival curves?</p></li>
+</ul>
+</section>
+<section id="what-we-cant-do" class="slide level2">
+<h2>What We Can’t Do</h2>
+<ul>
+<li class="fragment"><p>Longitudinal data <strong>can’t</strong> be analyzed using cross-sectional tests (t-test, one way ANOVA, etc.)</p></li>
+<li class="fragment"><p>The reason is that a single time point gives a biased perception of what actually is going on namely, ignores the effect of <strong>time</strong></p></li>
+</ul>
+</section>
+<section id="the-log-rank-test-rationale" class="slide level2">
+<h2>The Log-rank Test: Rationale</h2>
+<ul>
+<li class="fragment"><p>If two treatments have the same effect, the survival curves should be different only due to random variation in the sampling process</p></li>
+<li class="fragment"><p>How can we know that the difference between two Survival Curves is caused by the effect of treatment?</p></li>
+<li class="fragment"><p>In other words, we want to test that:</p>
+<ul>
+<li class="fragment"><span class="math inline">\(H_o\)</span>: There is no difference between the treatment groups survival curves</li>
+<li class="fragment">This means that if we fail to reject <span class="math inline">\(H_o\)</span> the probability of a death occuring at any time point is the same in each treatment group.</li>
+</ul></li>
+</ul>
+<div class="footer">
+<p>Bewick, Cheek, Ball. <em>Critical Care</em>. 2004</p>
+</div>
+</section>
+<section id="the-log-rank-test" class="slide level2">
+<h2>The Log-rank Test</h2>
+<ul>
+<li class="fragment"><p>We compute a <span class="math inline">\(\chi^2\)</span> statistic (used to compare the observed results with expected results using categorical data)</p></li>
+<li class="fragment"><p>The test statistic is calculated in terms of the observed <em>(O)</em>, and expected <em>(E)</em> values.</p></li>
+<li class="fragment"><p><em>O</em>: total number of observed deaths in each group</p></li>
+<li class="fragment"><p><em>E</em>: Sum of the expected number of deaths at the time of each death (i.e., risk of death at that time multiplied by the number alive int he group).</p></li>
+</ul>
+</section>
+<section id="how-it-works" class="slide level2">
+<h2>How it works</h2>
+<ul>
+<li class="fragment"><p>We first order the survival times in each group (if a death and a censored observation are tied, the censored observation is allocated a higher rank).</p></li>
+<li class="fragment"><p>An example: Data from 51 patients with recurrent gliomas.</p>
+<ul>
+<li class="fragment">A: astrocytoma</li>
+<li class="fragment">G: glioblastoma</li>
+</ul></li>
+<li class="fragment"><p>Is there a significant difference between the survival times between the two groups?</p></li>
+</ul>
+</section>
+<section id="how-it-works-1" class="slide level2 scrollable">
+<h2>How it works</h2>
+<p>The data:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+<tr><th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4"><div style="TRUE">Group A</div></th></tr>
+  <tr>
+   <th style="text-align:center;"> id </th>
+   <th style="text-align:center;"> Group </th>
+   <th style="text-align:center;"> Time </th>
+   <th style="text-align:center;"> Condition </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 13 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 21 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 30 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 31 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 37 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 7 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 38 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 8 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 47 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 9 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 49 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 50 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 11 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 63 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 12 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 79 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 13 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 80 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 14 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 82 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 15 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 82 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 16 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 86 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 17 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 98 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 18 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 149 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 19 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 202 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 20 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 219 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+<tr><th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4"><div style="TRUE">Group G</div></th></tr>
+  <tr>
+   <th style="text-align:center;"> id </th>
+   <th style="text-align:center;"> Group </th>
+   <th style="text-align:center;"> Time </th>
+   <th style="text-align:center;"> Condition </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;"> 21 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 22 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 23 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 12 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 24 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 13 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 25 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 14 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 26 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 15 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 27 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 16 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 28 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 17 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 29 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 18 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 30 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 20 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 31 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 24 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 32 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 24 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 33 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 25 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 34 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 28 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 35 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 30 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 36 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 33 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 37 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 34 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 38 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 35 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 39 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 37 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 40 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 40 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 41 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 40 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 42 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 40 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 43 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 46 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 44 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 48 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 45 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 70 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 46 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 76 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 47 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 81 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 48 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 82 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 49 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 91 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 50 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 112 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 51 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 181 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="how-it-works-2" class="slide level2">
+<h2>How it works</h2>
+
+<img data-src="Survival_analysis_files/figure-revealjs/glioma-survival-curve-1.png" width="960" class="r-stretch"></section>
+<section id="how-it-works-3" class="slide level2">
+<h2>How it works</h2>
+<div>
+<ul>
+<li>The procedure is easier to visualize if we order the data by survival times (regardless of the group).</li>
+</ul>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:center;"> id </th>
+   <th style="text-align:center;"> Group </th>
+   <th style="text-align:center;"> Time </th>
+   <th style="text-align:center;"> Condition </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 21 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 22 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 23 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 12 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 13 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 24 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 13 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="how-it-works-4" class="slide level2">
+<h2>How it works</h2>
+<ul>
+<li class="fragment"><p>For each group, we will calculate the <em>observed</em> number of deaths and the number <em>expected</em> if there were no difference between the groups.</p></li>
+<li class="fragment"><p>First death was at week 6, when 1 patient in Group A died.</p></li>
+<li class="fragment"><p>When week 6 started, there were 51 subjects alive in total.</p>
+<ul>
+<li class="fragment">Therefore, the risk of death in this week is <span class="math inline">\(\frac{1}{51}\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="how-it-works-5" class="slide level2">
+<h2>How it works</h2>
+<ul>
+<li class="fragment">There were 20 patients in group A at the beginning of week 6, so if <span class="math inline">\(H_o\)</span> were true the expected number of deaths in Group A is</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[20 \times \frac{1}{51}=0.39\]</span></p>
+<ul>
+<li class="fragment">In Group G, the expected number of deaths is</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="math display">\[31 \times \frac{1}{51}=0.61\]</span></p>
+</div>
+</section>
+<section id="how-it-works-6" class="slide level2">
+<h2>How it works</h2>
+<div>
+<ul>
+<li>The next deaths occured at week 10 in Group G (2 deaths)</li>
+</ul>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:center;"> id </th>
+   <th style="text-align:center;"> Group </th>
+   <th style="text-align:center;"> Time </th>
+   <th style="text-align:center;"> Condition </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 21 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 22 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 23 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 12 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> A </td>
+   <td style="text-align:center;"> 13 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 24 </td>
+   <td style="text-align:center;"> G </td>
+   <td style="text-align:center;"> 13 </td>
+   <td style="text-align:center;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<ul>
+<li class="fragment"><p>At this point there were:</p>
+<ul>
+<li class="fragment">20-1=19 patients at risk in Group A</li>
+<li class="fragment">31 patients at risk in Group G</li>
+</ul></li>
+</ul>
+</section>
+<section id="how-it-works-7" class="slide level2">
+<h2>How it works</h2>
+<ul>
+<li class="fragment">Probability of death at week 10 then is:</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[\frac{2}{19+31}=\frac{2}{50}\]</span></p>
+</div>
+</section>
+<section id="how-it-works-8" class="slide level2">
+<h2>How it works</h2>
+<ul>
+<li class="fragment"><p>Expected number of deaths at week 10:</p>
+<ul>
+<li class="fragment">Group A: <span class="math inline">\(19 \times \frac{2}{50}=0.76\)</span></li>
+<li class="fragment">Group G: <span class="math inline">\(31 \times \frac{2}{50}=1.24\)</span></li>
+</ul></li>
+<li class="fragment"><p>We then repeat the same calculations every time death(s) occur, and compute the <strong>total</strong> number of expected deaths in both groups.</p></li>
+<li class="fragment"><p>Censored survival times are considered at risk of dying at the time of censoring, but not in subsequent weeks</p></li>
+</ul>
+</section>
+<section id="the-log-rank-test-1" class="slide level2">
+<h2>The Log-rank Test</h2>
+<ul>
+<li class="fragment">The Log-rank test is then calculated as:</li>
+</ul>
+<p>…</p>
+<p><span class="math display">\[\chi^2=  \sum_{i=1}^{g} \frac{(O_i-E_i)^2}{E_i}\]</span> . . .</p>
+<p>Where:</p>
+<ul>
+<li class="fragment"><span class="math inline">\(g\)</span>= number of treatment groups</li>
+</ul>
+</section>
+<section id="the-log-rank-test-2" class="slide level2">
+<h2>The Log-rank Test</h2>
+<ul>
+<li class="fragment">In our example the Log-rank test would be:</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[\chi^2=  \frac{(O_A-E_A)^2}{E_A} + \frac{(O_G-E_G)^2}{E_G},\]</span></p>
+</div>
+</section>
+<section id="the-log-rank-test-3" class="slide level2">
+<h2>The Log-rank Test</h2>
+<div class="fragment">
+<p><span class="math display">\[\chi^2=  \frac{(14-22.5)^2}{22.5} + \frac{(28-19.5)^2}{19.5}=6.88\]</span> - The degrees of freedom are the number of treatment groups minus 1 (df=1)</p>
+<ul>
+<li class="fragment"><p>From a table of the <span class="math inline">\(\chi^2\)</span> distribution <span class="math inline">\(p=0.009\)</span></p></li>
+<li class="fragment"><p>We reject <span class="math inline">\(H_o\)</span>, the difference between the groups is statistically significant.</p></li>
+</ul>
+<!-- glioma_rank<-survdiff(Surv(Time,Condition)~Group,data=glioma) -->
+</div>
+</section>
+<section id="the-hazard-ratio-hr" class="slide level2">
+<h2>The Hazard Ratio (HR)</h2>
+<ul>
+<li class="fragment"><p>The ratio <span class="math inline">\(O_A/E_A\)</span> is an estimate of the relative death rate in the group.</p></li>
+<li class="fragment"><p>A value <span class="math inline">\(&gt;1\)</span> suggests that there are more deaths in Group A, than what would be expected under a hypothesis of equal treatment efficacy.</p></li>
+<li class="fragment"><p>We can combine this metric for both groups to summarize the results of a study.</p></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[HR=\frac{O_A/E_A}{O_G/E_G}\]</span></p>
+</div>
+</section>
+<section id="the-hazard-ratio" class="slide level2">
+<h2>The Hazard Ratio</h2>
+<ul>
+<li class="fragment">From our example:</li>
+</ul>
+<p><span class="math display">\[HR=\frac{14/22.5}{28/19.5}=0.43\]</span> - Patients with astrocytoma have about half the hazard rate of patients with glioblastoma</p>
+<ul>
+<li class="fragment">If we compute <span class="math inline">\(HR\)</span> for Group G the value is <span class="math inline">\(2.31\)</span>, patients with glioblastoma have double the hazard rate of patients with astrocytoma</li>
+</ul>
+</section>
 <section id="the-hazard-probability" class="slide level2">
 <h2>The Hazard Probability</h2>
 <p>The relationship between <span class="math inline">\(S(t)\)</span> and <span class="math inline">\(h(t)\)</span> is defined by:</p>

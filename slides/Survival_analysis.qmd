@@ -14,6 +14,7 @@ library(tidyverse)
 library(here)
 library(survival)
 library(survminer)
+library(kableExtra)
 library(scico)
 thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
 ```
@@ -223,7 +224,7 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 
 - From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes' C colorectal cancer.
 
--
+
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 data<-read.csv("data/CRC_data.csv")
 
@@ -501,6 +502,7 @@ ggsurvplot(km_fit,
 - When there are censored survival times, $M$ is calculated by obtaining the Survival curve and then, finding the value that satisfies:
 
 . . .
+
 $$S(M)=0.5$$
 
 - Extend a horizontal line from $S(t)=0.5$ until the curve is met, and then move vertically down
@@ -601,10 +603,11 @@ Moertel, C. et al. _The New England Journal of Medicine_. 1990.
 
 ::: footer
 Bewick, Cheek, Ball. _Critical Care_. 2004
+:::
 
 ## The Log-rank Test
 
-- We compute a $\chi^2$ statistic: Compare the observed results with expected results using categorical data
+- We compute a $\chi^2$ statistic (used to compare the observed results with expected results using categorical data)
 
 - The test statistic is calculated in terms of the observed _(O)_, and expected _(E)_ values.
 
@@ -615,15 +618,206 @@ Bewick, Cheek, Ball. _Critical Care_. 2004
 
 ## How it works
 
-- We first rank the survival times in each group (if a death and a censored observation are tied, the censored observation is allocated a higher rank)
+- We first order the survival times in each group (if a death and a censored observation are tied, the censored observation is allocated a higher rank).
 
-- We then rank **all observations**, irrespective of group
+- An example: Data from 51 patients with recurrent gliomas.
+    + A: astrocytoma
+    + G: glioblastoma
+    
+- Is there a significant difference between the survival times between the two groups?
+
+## How it works {.scrollable}
+
+The data:
+
+:::: columns
+::: {.column width="50%"}
+
+```{r,glioma-data-A}
+
+glioma<-read.csv("data/glioma.csv")
 
 
+glioma %>%
+    filter(Group=="A")%>%
+    kbl(booktabs=T,align="c") %>%
+    kable_paper("striped",full_width=F)%>%
+    add_header_above(c("Group A"=4))
 
-## The Log-rank test
+```
+:::
 
-$$\chi^2(\text{log rank})= \frac{(O_A-E_A)^2}{E_A} + \frac{(O_B-E_B)^2}{E_B}$$
+::: {.column width="50%"}
+
+```{r,glioma-data-G}    
+glioma %>%
+    filter(Group=="G")%>%
+    kbl(booktabs=T,align="c") %>%
+    kable_paper("striped",full_width=F) %>%
+     add_header_above(c("Group G"=4))
+
+```
+
+:::
+::::
+
+## How it works
+
+```{r,glioma-survival-curve}
+#Only analyzing death 
+
+
+glioma_fit<-survfit(Surv(Time,Condition)~Group,data=glioma)
+
+ggsurvplot(glioma_fit,
+           conf.int=FALSE,
+           #risk.table = TRUE,
+           legend.title="Treatment",
+           palette=c("#2F143F","#95AE90"),
+           #surv.median.line = "hv",
+           xlim=c(0,max(glioma$Time)),
+           ggtheme=theme_classic(),
+           data=glioma)
+
+
+```
+
+## How it works 
+
+::: {.nonincremental}
+
+- The procedure is easier to visualize if we order the data by survival times (regardless of the group).
+
+:::
+
+```{r,rank-glioma}
+glioma %>%
+    arrange(Time)%>%
+    slice(1:6)%>%
+    kbl(booktabs=T,align="c") %>%
+    kable_paper("striped",full_width=F)
+```
+
+## How it works
+
+- For each group, we will calculate the _observed_ number of deaths and the number _expected_ if there were no difference between the groups.
+
+- First death was at week 6, when 1 patient in Group A died.
+
+- When week 6 started, there were 51 subjects alive in total.
+    + Therefore, the risk of death in this week is $\frac{1}{51}$
+    
+## How it works
+
+- There were 20 patients in group A at the beginning of week 6, so if $H_o$ were true the expected number of deaths in Group A is 
+
+. . .
+
+$$20 \times \frac{1}{51}=0.39$$
+
+- In Group G, the expected number of deaths is 
+
+. . .
+
+$$31 \times \frac{1}{51}=0.61$$
+
+## How it works
+
+::: {.nonincremental}
+
+- The next deaths occured at week 10 in Group G (2 deaths)
+
+:::
+
+```{r,rank-glioma-b}
+glioma %>%
+    arrange(Time)%>%
+    slice(1:6)%>%
+    kbl(booktabs=T,align="c") %>%
+    kable_paper("striped",full_width=F)
+```
+
+- At this point there were:
+
+    + 20-1=19 patients at risk in Group A
+    + 31 patients at risk in Group G
+
+## How it works
+
+- Probability of death at week 10 then is:
+
+. . .
+
+$$\frac{2}{19+31}=\frac{2}{50}$$
+
+## How it works
+
+- Expected number of deaths at week 10:
+    + Group A: $19 \times \frac{2}{50}=0.76$
+    + Group G: $31 \times \frac{2}{50}=1.24$
+
+- We then repeat the same calculations every time death(s) occur, and compute the **total** number of expected deaths in both groups.
+
+- Censored survival times are considered at risk of dying at the time of censoring, but not in subsequent weeks
+
+
+## The Log-rank Test
+
+- The Log-rank test is then calculated as:
+
+...
+
+$$\chi^2=  \sum_{i=1}^{g} \frac{(O_i-E_i)^2}{E_i}$$
+. . .
+
+Where:
+
+- $g$= number of treatment groups
+
+
+## The Log-rank Test
+
+- In our example the Log-rank test would be:
+
+. . .
+
+$$\chi^2=  \frac{(O_A-E_A)^2}{E_A} + \frac{(O_G-E_G)^2}{E_G},$$
+
+## The Log-rank Test
+
+. . . 
+
+$$\chi^2=  \frac{(14-22.5)^2}{22.5} + \frac{(28-19.5)^2}{19.5}=6.88$$
+- The degrees of freedom are the number of treatment groups minus 1 (df=1)
+
+- From a table of the $\chi^2$ distribution $p=0.009$
+
+- We reject $H_o$, the difference between the groups is statistically significant.
+
+
+<!-- glioma_rank<-survdiff(Surv(Time,Condition)~Group,data=glioma) -->
+
+## The Hazard Ratio (HR)
+
+- The ratio $O_A/E_A$ is an estimate of the relative death rate in the group.
+
+- A value $>1$ suggests that there are more deaths in Group A, than what would be expected under a hypothesis of equal treatment efficacy.
+
+- We can combine this metric for both groups to summarize the results of a study.
+
+. . .
+
+$$HR=\frac{O_A/E_A}{O_G/E_G}$$
+
+## The Hazard Ratio
+
+- From our example:
+
+$$HR=\frac{14/22.5}{28/19.5}=0.43$$
+- Patients with astrocytoma have about half the hazard rate of patients with glioblastoma
+
+- If we compute $HR$ for Group G the value is $2.31$, patients with glioblastoma have double the hazard rate of patients with astrocytoma
+
 
 ## The Hazard Probability
 
