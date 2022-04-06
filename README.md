@@ -1,5 +1,4 @@
-# BMEG 5103: Survival Analysis
-## An introduction
+# BMEG 5103: Introduction to Survival Analysis
 
 This is the page for the Survival Analysis component of BMEG 5103: Design and Analysis of Experiments in Biomedical Research for the Spring of 2022.
 
@@ -19,7 +18,7 @@ This part of the course relies on data to demonstrate how the analyses are perfo
 **Slides** can be accesed [here](https://aimundo.github.io/BMEG-5103_TA_Spring_2022/slides/Survival_analysis.html#/title-slide)
 **Datasets** can be found [here](https://github.com/aimundo/BMEG-5103_TA_Spring_2022/tree/main/slides/data).
 
- ### About the Datasets
+### About the Datasets
  
   - `CRC_data.csv` is a dataset regarding mortality of patients with Dukes' C colorectal cancer. This dataset is used to explain the Kaplan-Meier estimator.
   - `glioma.csv` is a dataset regarding mortality of patients with two types of glioma (astrocytoma and glioblastoma). This dataset is used to explain the Log-rank test.
