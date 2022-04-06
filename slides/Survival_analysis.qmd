@@ -19,7 +19,6 @@ library(scico)
 thm1<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
 ```
 
-
 ## Introduction
 
 (from _Wikipedia_)
@@ -111,8 +110,9 @@ Rich, et al. _A practical guide to understanding Kaplan-Meier Curves_. 2010
 
 ## Censoring
 
-### Challenges
+### Challenges 
 
+::: {.nonincremental}
 :::: columns
 ::: {.column width="40%"}
 
@@ -124,7 +124,9 @@ Rich, et al. _A practical guide to understanding Kaplan-Meier Curves_. 2010
 
 ::: {.column width="60%"}
 
+
 ![](images/swimmer-1.png)
+:::
 :::
 ::::
 
@@ -176,7 +178,16 @@ _Dashed vertical line is the date of the last follow-up_
 Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 2003
 :::
 
-## Another Example
+::: {.notes}
+
+- Things to note:
+ - Patients enroll in the trial at different times
+ - Patients can die from the disease of interest, or other cause as well
+ - The "event" we're interested in can be death, but it also could be relapse, years free of disease, etc. 
+
+:::
+
+## An Example
 
 - 4 patients had a non-fatal relapse (R)
 - 1 lost at follow-up
@@ -231,6 +242,12 @@ data<-read.csv("data/CRC_data.csv")
 knitr::kable(head(data), align='c')
 ```
 
+::: {.notes}
+
+- Here for the sake of clarity I am only showing the first rows of the data.
+- Notice that conveniently, survival times are already ordered from lower to higher
+:::
+
 ## Plotting the data
 
 Let's see how the plot looks like:
@@ -254,8 +271,6 @@ data %>%
 
 ## A word about notation!
 
-- First we rank all survival/censored times from low to high
-
 - Survival times are denoted by $t$ and Censored times are denoted by $t+$:
     + Censored time for patient 1 is **3+**
     + Survival time for patient 2 is **6**
@@ -263,6 +278,23 @@ data %>%
 - If there are ties in survival/censored data (like the 3 patients at 12 mo.), censored observations get a higher rank.
     + In this case, survival times are 12, 12 and 12+
     + Ranks would be 8, 9 and 10
+
+## How to tackle the problem of censored data
+
+:::: columns
+::: {.column width="40%"}
+
+::: {.nonincremental}
+- In 1958, Kaplan & Meier proposed a method to estimate survival probabilities that has since then become the default method to analyze censored data.
+:::
+:::
+
+::: {.column width="60%"}
+
+![](images/kaplan-meier.jpg)
+
+:::
+::::
 
 ## The rationale behind Kaplan-Meier
 
@@ -308,7 +340,7 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 
 ## The rationale behind Kaplan-Meier
 
-- For survival data, we usually estimate the Survival Probability (aka Survivor Function)
+- For survival data, we usually estimate the Survival Probability (a.k.a. Survivor Function)
     + Survival $S(t)$:<br>
     Probability that an individual survives from the time origin to a specific future time $t$
 
@@ -765,9 +797,10 @@ $$\frac{2}{19+31}=\frac{2}{50}$$
 
 - The Log-rank test is then calculated as:
 
-...
+. . .
 
 $$\chi^2=  \sum_{i=1}^{g} \frac{(O_i-E_i)^2}{E_i}$$
+
 . . .
 
 Where:
@@ -777,7 +810,7 @@ Where:
 
 ## The Log-rank Test
 
-- In our example the Log-rank test would be:
+- In our example, the Log-rank test would be:
 
 . . .
 
@@ -812,6 +845,7 @@ $$HR=\frac{O_A/E_A}{O_G/E_G}$$
 ## The Hazard Ratio
 
 - From our example:
+. . .
 
 $$HR=\frac{14/22.5}{28/19.5}=0.43$$
 - Patients with astrocytoma have about half the hazard rate of patients with glioblastoma
@@ -824,5 +858,23 @@ $$HR=\frac{14/22.5}{28/19.5}=0.43$$
 The relationship between $S(t)$ and $h(t)$ is defined by:
 
 $$h(t)=-\frac{\text{d}}{\text{d}t}[\log S(t)]$$
+
+## Some final words
+
+- When numbers are small, the Survival Curves can present issues (power?)
+
+- Some sources say that the last part of a survival curve becomes unreliable if the number of patients at risk is below 15
+
+- It is best to analyze your data in a way that is reproducible
+
+## Some final words
+
+
+
+::: footer
+Manchin, et al. _Survival Analysis: A Practical Approach_. 2nd. Ed. 2006
+:::
+
+
 
 - If $S(t)$ is known then $h(t)$ is automatically known (and viceversa).
