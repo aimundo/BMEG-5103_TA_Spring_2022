@@ -15,7 +15,7 @@ Additionally, the Kaplan-Meier Survival Curve and associated calcuations will be
 
 This part of the course relies on data to demonstrate how the analyses are performed.
 
-**Slides** can be accesed [here](https://aimundo.github.io/BMEG-5103_TA_Spring_2022/slides/Survival_analysis.html#/title-slide)
+**Slides** can be accesed [here](https://aimundo.github.io/BMEG-5103_TA_Spring_2022/slides/Survival_analysis.html#/title-slide) <br>
 **Datasets** can be found [here](https://github.com/aimundo/BMEG-5103_TA_Spring_2022/tree/main/slides/data).
 
 ### About the Datasets
@@ -25,7 +25,7 @@ This part of the course relies on data to demonstrate how the analyses are perfo
 
 A third dataset is used to demonstrate the use of Survival curves for three different groups. It is the `colon` dataset from the R package {survival}.
 
-Thes slides for this part of the course were created using [Quarto](https://quarto.org/docs/presentations/), R, and the {tidyverse}, {survival}, and {scico} packages.
+Thes slides for this part of the course were created using [Quarto](https://quarto.org/docs/presentations/), R, and the {tidyverse}, {survival}, and {scico} packages. <br>
 The repository with all the data and materials can be accessed [here](https://github.com/aimundo/BMEG-5103_TA_Spring_2022)
 
 ### Contact
