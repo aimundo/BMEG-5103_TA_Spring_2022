@@ -112,7 +112,6 @@ Rich, et al. _A practical guide to understanding Kaplan-Meier Curves_. 2010
 
 ### Challenges 
 
-::: {.nonincremental}
 :::: columns
 ::: {.column width="40%"}
 
@@ -126,7 +125,6 @@ Rich, et al. _A practical guide to understanding Kaplan-Meier Curves_. 2010
 
 
 ![](images/swimmer-1.png)
-:::
 :::
 ::::
 
@@ -231,7 +229,7 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 - A: Patients 5 and 6 would need to be censored as well
 :::
 
-## Another example
+## Another example {.scrollable}
 
 - From McIllmurray and Turkie (1987), survival times of 24 patients with Dukes' C colorectal cancer.
 
@@ -239,7 +237,7 @@ Clark, et al. _Survival Analysis Part I: Basic Concepts and first analyses_. 200
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 data<-read.csv("data/CRC_data.csv")
 
-knitr::kable(head(data), align='c')
+knitr::kable(data, align='c')
 ```
 
 ::: {.notes}
@@ -826,6 +824,28 @@ $$\chi^2=  \frac{(14-22.5)^2}{22.5} + \frac{(28-19.5)^2}{19.5}=6.88$$
 - From a table of the $\chi^2$ distribution $p=0.009$
 
 - We reject $H_o$, the difference between the groups is statistically significant.
+
+
+## The Log-rank Test
+
+```{r,glioma-survival-curve-complete}
+#Only analyzing death 
+
+
+glioma_fit<-survfit(Surv(Time,Condition)~Group,data=glioma)
+
+ggsurvplot(glioma_fit,
+           conf.int=TRUE,
+           risk.table = TRUE,
+           legend.title="Treatment",
+           palette=c("#2F143F","#95AE90"),
+           surv.median.line = "hv",
+           xlim=c(0,max(glioma$Time)),
+           ggtheme=theme_classic(),
+           data=glioma)
+
+
+```
 
 
 <!-- glioma_rank<-survdiff(Surv(Time,Condition)~Group,data=glioma) -->

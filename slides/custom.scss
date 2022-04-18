@@ -1,3 +1,10 @@
+/*-- scss:defaults --*/
+// importing fonts
+@import url('"https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
+
+// fonts
+$font-family-sans-serif: 'Atkinson Hyperlegible', sans-serif !default;
+
 /*-- scss:rules --*/
 
 /*-- PARAGRAPH TEXT --*/
@@ -6,3 +13,7 @@ h7 {
 }
 
 
+// MathJax
+.MathJax {
+    font-size: 0.5em !important;
+}
