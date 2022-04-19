@@ -683,7 +683,7 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 <h2>Doing the Calculations</h2>
 <ul>
 <li class="fragment"><p>Q: What is <span class="math inline">\(n_t\)</span> at 12 mo?</p></li>
-<li class="fragment"><p>A: 17 (19 were at risk at 8 mo and two died at 12 mo)</p></li>
+<li class="fragment"><p>A: 17 (19 were at risk at when the interval for 8 mo started, and two died then)</p></li>
 <li class="fragment"><p>Q: What would be the values of <span class="math inline">\(p_t\)</span> and <span class="math inline">\(S(t)\)</span> at 12 months?</p></li>
 </ul>
 </section>
@@ -804,8 +804,8 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 </div><div class="column" style="width:20%;">
 <ul>
 <li class="fragment">Vertical lines are the censored times</li>
-<li class="fragment"><code>Strata</code> indicates if we have different groups of data</li>
-<li class="fragment">At the bottom, we have the number of patients at risk with indicated timepoints</li>
+<li class="fragment"><code>Strata</code>: different groups</li>
+<li class="fragment">Bottom: Number of patients at risk with timepoints</li>
 </ul>
 </div>
 </div>
@@ -813,8 +813,26 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 <p>Why does this survival plot go to zero at 42 mo.?</p>
 </aside>
 </section>
+<section id="creating-the-plot-1" class="slide level2 smaller">
+<h2>Creating the plot</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="Survival_analysis_files/figure-revealjs/plot-survival-2-1.png" width="960" class=""></p>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">Length of horizontal lines represent the survival duration for that interval</li>
+<li class="fragment">An “event” (i.e., death) terminates the interval</li>
+<li class="fragment">Vertical distance between horizontal segments indicate the change in cumulative probability as the curve advances</li>
+<li class="fragment">The curve is based on <strong>step-wise</strong> estimates</li>
+</ul>
+</section>
 <section id="other-ways-to-present-the-data" class="slide level2 smaller">
-<h2>Other ways to present the data</h2>
+<h2>Other Ways to Present the Data</h2>
 <div class="columns">
 <div class="column" style="width:80%;">
 <div class="cell">
@@ -822,7 +840,8 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 <p><img data-src="Survival_analysis_files/figure-revealjs/cumulative-plot-1.png" width="960" class=""></p>
 </div>
 </div>
-</div><div class="column" style="width:20%;">
+</div>
+</div>
 <ul>
 <li class="fragment"><p>In certain circumstances, <span class="math inline">\(1-S(t)\)</span> is plotted against <span class="math inline">\(t\)</span>: <strong>Cumulative death curve</strong></p>
 <ul>
@@ -832,7 +851,23 @@ p_t= \frac{\text{Number of patients followed for at least } t-1 \\ \text { and w
 </ul></li>
 </ul></li>
 </ul>
+</section>
+<section id="other-ways-to-present-the-data-1" class="slide level2">
+<h2>Other Ways to Present the Data</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li class="fragment">Study in sub-Saharan women regarding the effect of pregnancy in women under antiretrovial therapy (HAART) for HIV.</li>
+</ul>
+</div><div class="column" style="width:60%;">
+<p><img data-src="images/pregnancy.png" class=""></p>
 </div>
+</div>
+<ul>
+<li class="fragment">” Of note, in women 25 years or younger at HAART initiation, over 50% have experienced at least one incident pregnancy by seven years of follow-up.”</li>
+</ul>
+<div class="footer">
+<p>Westreich, et. al.&nbsp;<em>PLOS One</em>. 2013.</p>
 </div>
 </section>
 <section id="median-survival-time-no-censored-obs." class="slide level2">

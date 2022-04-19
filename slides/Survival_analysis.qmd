@@ -431,7 +431,7 @@ Going back to the Dukes' colorectal cancer example:
 ## Doing the Calculations
 
 - Q: What is $n_t$ at 12 mo?
-- A: 17 (19 were at risk at 8 mo and two died at 12 mo)
+- A: 17 (19 were at risk at when the interval for 8 mo started, and two died then)
 
 - Q: What would be the values of $p_t$ and $S(t)$ at 12 months?
 
@@ -479,8 +479,8 @@ ggsurvplot(km_fit,
 
 ::: {.column width="20%"}
 - Vertical lines are the censored times
-- `Strata` indicates if we have different groups of data
-- At the bottom, we have the number of patients at risk with indicated timepoints
+- `Strata`: different groups
+- Bottom: Number of patients at risk with timepoints
 
 :::
 ::::
@@ -491,10 +491,41 @@ Why does this survival plot go to zero at 42 mo.?
 
 :::
 
-## Other ways to present the data {.smaller}
+## Creating the plot {.smaller}
 
 :::: columns
+::: {.column width="70%"}
 
+```{r,plot-survival-2,echo=FALSE}
+
+#Dead will become 1 and censored becomes 0
+data<-data %>%
+    mutate(Cat=ifelse(Category=="D",1,0))
+
+km<-with(data,Surv(Survival_date,Cat))
+
+km_fit<-survfit(Surv(Survival_date,Cat)~1,data=data)
+
+ggsurvplot(km_fit,
+           conf.int=FALSE,
+           risk.table = TRUE,
+           ggtheme=theme_classic(),
+           data=data)
+
+```
+:::
+::::
+
+
+- Length of horizontal lines represent the survival duration for that interval
+- An "event" (i.e., death) terminates the interval
+- Vertical distance between horizontal segments indicate the change in cumulative probability as the curve advances
+- The curve is based on **step-wise** estimates
+
+
+## Other Ways to Present the Data {.smaller}
+
+:::: columns
 ::: {.column width="80%"}
 ```{r,cumulative-plot,echo=FALSE}
 ggsurvplot(km_fit,
@@ -507,15 +538,37 @@ ggsurvplot(km_fit,
 ```
 
 :::
+::::
 
-::: {.column width="20%"}
 - In certain circumstances, $1-S(t)$ is plotted against $t$: **Cumulative death curve**
 
     + This is done when the outcome is rare or is of benefit of the patient:
         + Healing of a lesion, achieving pregnancy, etc.
         
+
+
+## Other Ways to Present the Data 
+
+:::: columns
+::: {.column width="40%"}
+- Study in sub-Saharan women regarding the effect of pregnancy in women under antiretrovial therapy (HAART) for HIV.
+:::
+
+
+::: {.column width='60%'}
+![](images/pregnancy.png)
 :::
 ::::
+
+- " Of note, in women 25 years or younger at HAART initiation, over 50% have experienced at least one incident pregnancy by seven years of follow-up."
+
+
+::: footer
+
+Westreich, et. al. _PLOS One_. 2013.
+
+:::
+
 
 ## Median Survival Time: No Censored Obs.
 
