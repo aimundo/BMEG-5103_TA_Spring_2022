@@ -476,14 +476,14 @@ ggsurvplot(km_fit,
 ```
 
 :::
+::::
 
-::: {.column width="20%"}
+
 - Vertical lines are the censored times
 - `Strata`: different groups
 - Bottom: Number of patients at risk with timepoints
 
-:::
-::::
+
 
 ::: {.notes}
 
