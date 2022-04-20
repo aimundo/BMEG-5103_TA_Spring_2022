@@ -603,6 +603,33 @@ ggsurvplot(km_fit,
 ```
 
 
+## Recap
+
+- We want to estimate the probability of survival over time
+
+- **Censored observations** are those where we don't observe the event
+
+- The Kaplan-Meier survival estimate allows to calculate the conditional probability of survival
+
+. . .
+
+$$S(t)=S(t-1) \left( 1-\frac{d_t}{n_t} \right),$$
+
+## Recap
+
+::: {.nonincremental}
+
+- A very good example: Diabetic patients with renal replacement therapy (RRT). 
+
+- Follow-up until death
+
+:::
+
+. . .
+
+[Jager et al. 2008](https://www.sciencedirect.com/science/article/pii/S0085253815533681)
+
+
 ## Confidence Intervals {.smaller}
 
 - How reliable are the estimates of the Kaplan-Meier curve?
@@ -614,7 +641,7 @@ ggsurvplot(km_fit,
 . . .
 
 $$S(t) \pm 1.96 \times SE(S(t))$$
-- Where $SE$ is the standard error (calculated using Greenwod's formula)
+- Where $SE$ is the standard error (calculated using Greenwood's formula)
 
 - Any familiarity with the 1.96 in the equation?
     - We are assuming normally distributed _estimates_, and 95% of the area in a normal distribution is within 1.96 standard deviations from the mean
@@ -673,7 +700,7 @@ Moertel, C. et al. _The New England Journal of Medicine_. 1990.
 
 - The reason is that a single time point gives a biased perception of what actually is going on namely, ignores the effect of **time**
 
-## The Log-rank Test: Rationale
+## The Log-rank Test: Rationale {.smaller}
 
 - If two treatments have the same effect, the survival curves should be different only due to random variation in the sampling process
 
@@ -918,36 +945,62 @@ $$HR=\frac{O_A/E_A}{O_G/E_G}$$
 ## The Hazard Ratio
 
 - From our example:
+
 . . .
 
 $$HR=\frac{14/22.5}{28/19.5}=0.43$$
+
 - Patients with astrocytoma have about half the hazard rate of patients with glioblastoma
 
 - If we compute $HR$ for Group G the value is $2.31$, patients with glioblastoma have double the hazard rate of patients with astrocytoma
 
 
-## The Hazard Probability
+## Limitations of the Kaplan-Meier Estimator {.smaller}
 
-The relationship between $S(t)$ and $h(t)$ is defined by:
+- The K-M estimator and the Log-rank test are good to get an estimate of survival and to compare survival between groups
 
-$$h(t)=-\frac{\text{d}}{\text{d}t}[\log S(t)]$$
+- However, K-M and the Log-rank test cannot:
+    - Provide an estimate of the size of the difference between groups
+    - Can be used only with categorical data (e.g., two treatment groups)
+
+- K-M and Log-rank tests are methods of _univariate analysis_: Just consider one factor
+
+## Limitations of the Kaplan-Meier Estimator
+
+- K-M and Log-rank don't work when:
+    - You have multiple covariates (variables) that might affect survival time: age, genotype, race, etc.
+    
+    - In this case we need to adjust for the impact of the other variables in the survival time
+
+
+## Cox Proportional Hazards Regression
+
+- Cox ([1972](https://www.jstor.org/stable/2985181)) developed a method that enables to do regression on survival data
+
+- This allows to examine the dependency of survival time on predictor variables (covariates)
+
+- We will not cover Cox's regression in this course in detail
+
+- It allows to simultaneously evaluate the effect of multiple covariates on survival.
+
+    - How the factors influence the _rate_ of death at a particular time point 
+    
+    - This rate is known as the **hazard rate**
+    
+## Literature that covers Cox Regression with examples:
+
+- [STHDA](http://www.sthda.com/english/wiki/cox-proportional-hazards-model)
+- [Article](https://www.annualreviews.org/doi/full/10.1146/annurev.publhealth.18.1.105#_i7) from _Annual Reviews_ 
+
+    
 
 ## Some final words
 
-- When numbers are small, the Survival Curves can present issues (power?)
+- When numbers are small, the Survival Curves can present issues (power)
 
 - Some sources say that the last part of a survival curve becomes unreliable if the number of patients at risk is below 15
 
 - It is best to analyze your data in a way that is reproducible
 
-## Some final words
+- Always be sure to know **why** you are doing the test or analysis you are doing. We are good a biology but struggle with Statistics a lot
 
-
-
-::: footer
-Manchin, et al. _Survival Analysis: A Practical Approach_. 2nd. Ed. 2006
-:::
-
-
-
-- If $S(t)$ is known then $h(t)$ is automatically known (and viceversa).
